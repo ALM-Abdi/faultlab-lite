@@ -5,7 +5,6 @@ import time
 def monitor_api(url):
     try:
         start= time.perf_counter()
-    
         with urllib.request.urlopen( url, timeout=5) as response:
             status_code = response.status
         end=time.perf_counter()
@@ -20,9 +19,15 @@ def monitor_api(url):
         
     except urllib.error.URLError as error:
         end=time.perf_counter()
-        print("checking: ", url, "\n","Network error detected",'\n',error.reason)
-    
+        if isinstance(error.reason,TimeoutError):
+            print(url,"\n Request timed out")
+        else:
+            print("checking: ", url, "\n","Network error detected",'\n',error.reason)
 
+    except TimeoutError:
+        print(url,"\n Request timed out")
+    
+    
 def check_status(status_code):
 
     if 200<= status_code<300:
