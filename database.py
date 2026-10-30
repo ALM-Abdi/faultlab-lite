@@ -19,9 +19,6 @@ def save_result(url, status_code, response_time, error_type=None):
     
     cur.execute("INSERT INTO api_checks (url, status_code, response_time_ms, error_type) VALUES(?,?,?,?)",  (url,status_code, response_time, error_type))
     
-    print ("Result saved successfullyt")
+    print ("Result saved successfully")
     conn.commit()
     conn.close()
-
-if __name__ == "__main__":
-    save_result("https://gitlllhub.com", None, 30.19, "NETWORK_ERROR")

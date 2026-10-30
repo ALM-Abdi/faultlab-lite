@@ -2,7 +2,7 @@ import urllib.request
 import urllib.error
 import time
 from database import save_result
-
+from history import show_statistics
 def monitor_api(url):
     try:
         start= time.perf_counter()
@@ -68,10 +68,12 @@ if __name__ == "__main__":
     "https://gitlllhub.com"
     ]
     for url in urls:
-        print("Checking", url)
+        print("------------------------")
         result = monitor_api(url)
         if result is not None:
             save_result(result[0],result[1],result[2],result[3])
             print("Returned:", result)
-
+            
+    print("\n===== API STATISTICS =====")
+    show_statistics()
     
